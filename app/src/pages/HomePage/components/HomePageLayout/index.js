@@ -1,4 +1,9 @@
 import { useForm } from 'react-hook-form';
+import Box from '@mui/material/Box';
+import Input from '@mui/material/Input';
+import Button from '@mui/material/Button';
+
+import styles from './style.module.scss';
 
 const HomePageLayout = ({ handleGoToWord }) => {
   const {
@@ -12,21 +17,33 @@ const HomePageLayout = ({ handleGoToWord }) => {
   };
 
   return (
-    <div>
-      <h1>Free Dictionary API</h1>
-      <div>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <input
-            placeholder='Search'
-            type='text'
-            {...register('searchWord', { required: true, minLength: 1 })}
-          />
-          <button type='submit'>search</button>
-          {errors.searchWord && (
-            <p>The minimum length of a word is one character.</p>
-          )}
-        </form>
-      </div>
+    <div className={styles.search}>
+      <p>Search a word to get the definition:</p>
+      <Box
+        component='form'
+        sx={{
+          '& > :not(style)': { m: 1 },
+        }}
+        noValidate
+        autoComplete='off'
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <Input
+          className='styles.input'
+          placeholder='Search'
+          variant='filled'
+          color='primary'
+          focused
+          {...register('searchWord', { required: true, minLength: 1 })}
+        />
+
+        <Button variant='outlined' type='submit'>
+          Search
+        </Button>
+        {errors.searchWord && (
+          <p>The minimum length of a word is one character.</p>
+        )}
+      </Box>
     </div>
   );
 };

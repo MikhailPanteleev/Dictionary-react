@@ -10,6 +10,8 @@ import Routes from './routes/Routes';
 
 import { configureStore } from './store/configureStore';
 
+import './styles/index.scss';
+
 const store = configureStore();
 const persistor = persistStore(store);
 

@@ -5,79 +5,61 @@ import { ROUTES } from '../../../../routes/routesNames';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 
-const DictionaryPageLayout = ({ info, isLoading, isError, error }) => {
+import styles from './style.module.scss';
+
+const DictionaryPageLayout = ({ info, isLoading, isError }) => {
   return (
-    <div>
+    <div className={styles.dictionary}>
       {isLoading ? (
         <CircularProgress />
       ) : (
         <div>
-          <Link to={ROUTES.HOME_PAGE}>
+          {isError ? (
+            <p className={styles.dictionary__error}>
+              Sorry pal, we couldn't find definitions for the word you were
+              looking for.You can try the search again at later time or head to
+              the web instead.
+            </p>
+          ) : (
+            <>
+              <p>
+                Word: <span>{info[0].word}</span>
+              </p>
+              {info[0].phonetics[0] ? (
+                <p>
+                  Transcription:<span> {info[0].phonetics[0].text}</span>
+                </p>
+              ) : null}
+
+              {info[0].phonetics[1] ? (
+                <p>
+                  Transcription:<span> {info[0].phonetics[1].text}</span>
+                </p>
+              ) : null}
+              {info[0].meanings[0].partOfSpeech ? (
+                <p>
+                  Part Of Speech:
+                  <span> {info[0].meanings[0].partOfSpeech}</span>
+                </p>
+              ) : null}
+              {info[0].meanings[0].definitions[0].definition ? (
+                <p>
+                  Meaning:{' '}
+                  <span>{info[0].meanings[0].definitions[0].definition}</span>
+                </p>
+              ) : null}
+              {info[0].meanings[0].definitions[0].example ? (
+                <p>
+                  Example:
+                  <span> {info[0].meanings[0].definitions[0].example}</span>
+                </p>
+              ) : null}
+            </>
+          )}
+
+          <Link to={ROUTES.HOME_PAGE} className={styles.dictionary__link}>
             <Button>Back To Home Page</Button>
           </Link>
-          <div>
-            {isError ? (
-              <p>{error.response}</p>
-            ) : (
-              <>
-                <p>
-                  Word: <span>{info[0].word}</span>
-                </p>
-                {info[0].phonetics[0]?.text ? (
-                  <p>Transcription: {info[0].phonetics[0]?.text}</p>
-                ) : null}
-                {info[0].phonetics[0]?.audio ? <p>Pronunciation:</p> : null}
-                {info[0].phonetics[0]?.audio ? (
-                  <div>
-                    <audio src={info[0].phonetics[0]?.audio} controls></audio>
-                  </div>
-                ) : null}
-                {info[0].phonetics[1]?.text ? (
-                  <p>Transcription: {info[0].phonetics[1]?.text}</p>
-                ) : null}
-                {/*<audio src={info[0].phonetics[1]?.audio} controls></audio>*/}
-                {info[0].meanings[0]?.partOfSpeech ? (
-                  <p>Part Of Speech: {info[0].meanings[0]?.partOfSpeech}</p>
-                ) : null}
-                {info[0].meanings[0]?.definitions[0].definition ? (
-                  <p>
-                    Meaning: {info[0].meanings[0]?.definitions[0].definition}
-                  </p>
-                ) : null}
-                {info[0].meanings[0]?.definitions[0].example ? (
-                  <p>Example: {info[0].meanings[0]?.definitions[0].example}</p>
-                ) : null}
-                {info[0].meanings[1]?.partOfSpeech ? (
-                  <p>Part Of Speech: {info[0].meanings[1]?.partOfSpeech}</p>
-                ) : null}
-                {info[0].meanings[1]?.definitions[0].definition ? (
-                  <p>
-                    Definition: {info[0].meanings[1]?.definitions[0].definition}
-                  </p>
-                ) : null}
-                {info[0].meanings[1]?.definitions[0].example ? (
-                  <p>Example: {info[0].meanings[1]?.definitions[0].example}</p>
-                ) : null}
-                {info[0].meanings[1]?.definitions[0].synonyms.join(', ') ? (
-                  <p>
-                    Synonyms:{' '}
-                    {info[0].meanings[1]?.definitions[0].synonyms.join(', ')}
-                  </p>
-                ) : null}
-                {info[0].meanings[2]?.partOfSpeech ? (
-                  <p>Part Of Speech: {info[0].meanings[2]?.partOfSpeech}</p>
-                ) : null}
-                {info[0].meanings[2]?.definitions[0].definition ? (
-                  <p>
-                    Meaning: {info[0].meanings[2]?.definitions[0].definition}
-                  </p>
-                ) : null}
-                {info[0].meanings[2]?.definitions[0].example ? (
-                  <p>Example: {info[0].meanings[2]?.definitions[0].example}</p>
-                ) : null}
-              </>
-            )}
-          </div>
         </div>
       )}
     </div>
