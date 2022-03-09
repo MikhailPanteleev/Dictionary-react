@@ -33,7 +33,6 @@ const HomePageLayout = ({ handleGoToWord }) => {
           placeholder='Search'
           variant='filled'
           color='primary'
-          focused
           {...register('searchWord', { required: true, minLength: 1 })}
         />
 

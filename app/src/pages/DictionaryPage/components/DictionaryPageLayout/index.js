@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ROUTES } from '../../../../routes/routesNames';
 
 import Button from '@mui/material/Button';
-import CircularProgress from '@mui/material/CircularProgress';
+import { Box, LinearProgress } from '@material-ui/core';
 
 import styles from './style.module.scss';
 
@@ -11,7 +11,9 @@ const DictionaryPageLayout = ({ info, isLoading, isError }) => {
   return (
     <div className={styles.dictionary}>
       {isLoading ? (
-        <CircularProgress />
+        <Box sx={{ width: '100%' }}>
+          <LinearProgress />
+        </Box>
       ) : (
         <div>
           {isError ? (
@@ -21,7 +23,7 @@ const DictionaryPageLayout = ({ info, isLoading, isError }) => {
               the web instead.
             </p>
           ) : (
-            <>
+            <div className={styles.dictionary__block}>
               <p>
                 Word: <span>{info[0].word}</span>
               </p>
@@ -54,7 +56,7 @@ const DictionaryPageLayout = ({ info, isLoading, isError }) => {
                   <span> {info[0].meanings[0].definitions[0].example}</span>
                 </p>
               ) : null}
-            </>
+            </div>
           )}
 
           <Link to={ROUTES.HOME_PAGE} className={styles.dictionary__link}>
