@@ -1,0 +1,27 @@
+.dictionary {
+    max-width: 1188px;
+    margin: 0 auto;
+    padding: 0;
+    p {
+        font-size: 38px;
+    }
+    span {
+        font-size:30px;
+        font-family: 'Rajdhani', sans-serif;
+    }
+    &__block {
+        margin-top: 80px;
+    }
+    &__link {
+        text-decoration: none;
+    }
+    &__error {
+        margin-top: 80px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .dictionary {
+        margin: 0 40px;
+    }
+}
